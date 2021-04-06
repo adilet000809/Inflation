@@ -2,6 +2,7 @@
     <string name="app_name">Diploma</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
+    <string name="prompt_city">City</string>
     <string name="password_reset">Password reset</string>
     <string name="enter_email_reset_password">Enter email to reset password</string>
     <string name="prompt_reset_code">Code</string>
