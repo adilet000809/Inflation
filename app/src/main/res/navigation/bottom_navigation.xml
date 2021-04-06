@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.diploma.ui.home.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.diploma.ui.history.HistoryFragment"
+        android:label="history_fragment"
+        tools:layout="@layout/history_fragment" />
+    <fragment
+        android:id="@+id/purchaseListFragment"
+        android:name="com.example.diploma.ui.purchaseList.PurchaseListFragment"
+        android:label="purchase_list_fragment"
+        tools:layout="@layout/purchase_list_fragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.diploma.ui.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/profile_fragment">
+        <action
+            android:id="@+id/action_profileFragment_to_profileChangeFragment"
+            app:destination="@id/profileChangeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileChangeFragment"
+        android:name="com.example.diploma.ui.profileEdit.ProfileEditFragment"
+        android:label="profile_change_fragment"
+        tools:layout="@layout/profile_edit_fragment" />
+
+</navigation>
