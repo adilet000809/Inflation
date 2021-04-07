@@ -52,6 +52,7 @@ class ProfileFragment : Fragment() {
                     binding.userProfileProgressBar.visibility = View.GONE
                     binding.userNameTextView.text = getString(R.string.user_profile_name,
                         userProfileResult.data?.firstName, userProfileResult.data?.lastName)
+                    binding.userTotalExpenditureTextView.text = userProfileResult.data?.total.toString()
                 }
                 Result.Status.ERROR -> {
                     binding.userProfileProgressBar.visibility = View.GONE

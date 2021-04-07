@@ -37,4 +37,7 @@
     <string name="change_password">Change password</string>
     <string name="user_profile_name">%1$s %2$s</string>
     <string name="personal_data">Personal data</string>
+    <string name="save">Save</string>
+    <string name="username_exists">Username exists</string>
+    <string name="email_exists">Email exists</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.diploma.data.repository
 
 import com.example.diploma.data.api.profile.ProfileDataSource
+import com.example.diploma.data.model.BaseResponse
 import com.example.diploma.data.model.Result
 import com.example.diploma.ui.profile.UserProfile
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,14 @@ class ProfileRepository @Inject constructor(
             emit(Result.loading())
             val loginResult = profileDataSource.getProfile(token)
             emit(loginResult)
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun editProfile(token: String, userProfile: UserProfile): Flow<Result<BaseResponse>> {
+        return flow {
+            emit(Result.loading())
+            val profileEditResult = profileDataSource.editProfile(token, userProfile)
+            emit(profileEditResult)
         }.flowOn(Dispatchers.IO)
     }
 }

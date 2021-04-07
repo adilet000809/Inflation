@@ -144,7 +144,6 @@ class RegistrationActivity : AppCompatActivity() {
         }
 
         registrationButton.setOnClickListener {
-            registrationProgressBar.visibility = View.VISIBLE
             registrationViewModel.register(
                     username.text.toString(),
                     email.text.toString(),
