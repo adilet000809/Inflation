@@ -35,4 +35,5 @@ class AuthApiHelperImpl @Inject constructor(
     override suspend fun resetPassword(passwordResetRequest: PasswordResetRequest): Response<BaseResponse> {
         return authService.resetPassword(passwordResetRequest)
     }
+
 }

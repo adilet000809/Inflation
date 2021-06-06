@@ -9,12 +9,16 @@
         android:id="@+id/homeFragment"
         android:name="com.example.diploma.ui.home.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.diploma.ui.history.HistoryFragment"
         android:label="history_fragment"
-        tools:layout="@layout/history_fragment" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_purchaseFragment"
+            app:destination="@id/purchaseFragment" />
+    </fragment>
     <fragment
         android:id="@+id/purchaseListFragment"
         android:name="com.example.diploma.ui.purchaseList.PurchaseListFragment"
@@ -24,15 +28,38 @@
         android:id="@+id/profileFragment"
         android:name="com.example.diploma.ui.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/profile_fragment">
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_profileChangeFragment"
             app:destination="@id/profileChangeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_passwordEditFragment"
+            app:destination="@id/passwordEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileChangeFragment"
         android:name="com.example.diploma.ui.profileEdit.ProfileEditFragment"
         android:label="profile_change_fragment"
         tools:layout="@layout/profile_edit_fragment" />
+    <fragment
+        android:id="@+id/passwordEditFragment"
+        android:name="com.example.diploma.ui.PasswordEditFragment"
+        android:label="PasswordEditFragment"
+        tools:layout="@layout/fragment_password_edit"/>
+    <fragment
+        android:id="@+id/barcodeScanFragment"
+        android:name="com.example.diploma.ui.scan.BarcodeScanFragment"
+        android:label="BarcodeScanFragment"
+        tools:layout="@layout/fragment_barcode_scan"/>
+    <fragment
+        android:id="@+id/purchaseFragment"
+        android:name="com.example.diploma.ui.purchase.PurchaseFragment"
+        android:label="fragment_purchase"
+        tools:layout="@layout/fragment_purchase" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 
 </navigation>

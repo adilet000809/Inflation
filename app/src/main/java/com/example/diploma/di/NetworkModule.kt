@@ -6,10 +6,12 @@ import com.example.diploma.data.api.auth.AuthApiHelperImpl
 import com.example.diploma.data.api.auth.AuthService
 import com.example.diploma.data.api.auth.AuthDataSource
 import com.example.diploma.data.api.auth.AuthDataSourceImpl
+import com.example.diploma.data.api.history.*
+import com.example.diploma.data.api.location.*
+import com.example.diploma.data.api.product.*
 import com.example.diploma.data.api.profile.*
 import com.example.diploma.data.manager.SessionManager
 import com.example.diploma.data.util.Constants
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -21,7 +23,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import java.util.prefs.Preferences
 import javax.inject.Singleton
 
 @Module
@@ -99,7 +100,51 @@ object NetworkModule {
         retrofit: Retrofit
     ): ProfileDataSource = ProfileDataSourceImpl(profileApiHelper, retrofit)
 
+    @Singleton
+    @Provides
+    fun provideLocationService(retrofit: Retrofit): LocationService = retrofit.create(LocationService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideLocationApiHelper(locationService: LocationService): LocationApiHelper = LocationApiHelperImpl(locationService)
 
 
+    @Singleton
+    @Provides
+    fun provideLocationDataSource(
+        locationApiHelper: LocationApiHelper,
+        retrofit: Retrofit
+    ): LocationDataSource = LocationDataSourceImpl(locationApiHelper, retrofit)
+
+
+    @Singleton
+    @Provides
+    fun provideProductService(retrofit: Retrofit): ProductService = retrofit.create(ProductService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideProductApiHelper(productService: ProductService): ProductApiHelper = ProductApiHelperImpl(productService)
+
+    @Singleton
+    @Provides
+    fun provideProductDataSource(
+        productApiHelper: ProductApiHelper,
+        retrofit: Retrofit
+    ): ProductDataSource = ProductDataSourceImpl(productApiHelper, retrofit)
+
+    @Singleton
+    @Provides
+    fun provideHistoryService(retrofit: Retrofit): HistoryService = retrofit.create(HistoryService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideHistoryApiHelper(historyService: HistoryService): HistoryApiHelper = HistoryApiHelperImpl(historyService)
+
+    @Singleton
+    @Provides
+    fun provideHistoryDataSource(
+        historyApiHelper: HistoryApiHelper,
+        retrofit: Retrofit
+    ): HistoryDataSource = HistoryDataSourceImpl(historyApiHelper, retrofit)
 
 }

@@ -35,7 +35,7 @@
             android:padding="24dp">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/user_avatar_image_view"
+                android:id="@+id/profile_fragment_user_avatar_image_view"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="centerCrop"

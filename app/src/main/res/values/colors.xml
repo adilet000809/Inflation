@@ -16,4 +16,8 @@
     <color name="colorDividerMore">#b4b4b4</color>
     <color name="colorDividerScroll">#e1e1e1</color>
     <color name="colorDividerTransparent">#77cccccc</color>
+    <color name="colorScanBackground">#cc000000</color>
+    <color name="colorPrimaryDark">#212121</color>
+    <color name="colorTextIcons">#ffffff</color>
+    <color name="colorBackgroundGrayIcon">#d5d5d5</color>
 </resources>

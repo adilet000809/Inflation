@@ -7,6 +7,7 @@
     <string name="enter_email_reset_password">Enter email to reset password</string>
     <string name="prompt_reset_code">Code</string>
     <string name="prompt_username">Username</string>
+    <string name="prompt_current_password">Current password</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_confirm_password">Confirm password</string>
     <string name="prompt_first_name">Firstname</string>
@@ -40,4 +41,9 @@
     <string name="save">Save</string>
     <string name="username_exists">Username exists</string>
     <string name="email_exists">Email exists</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password_change">Password_change</string>
+    <string name="scan_barcode">Scan barcode</string>
+    <string name="purchase_list_total">Total: %1$s KZT</string>
+    <string name="history_list_item_price">%1$s KZT</string>
 </resources>

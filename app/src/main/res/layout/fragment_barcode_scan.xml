@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:aapt="http://schemas.android.com/aapt">
+
+    <FrameLayout
+        android:id="@+id/root"
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCameraItems"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:orientation="vertical"
+                android:id="@+id/lineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.10" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:orientation="vertical"
+                android:id="@+id/lineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.90" />
+
+            <FrameLayout
+                android:id="@+id/flCameraFrame"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/focusView"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="64dp"
+                app:layout_constraintEnd_toStartOf="@+id/lineEnd"
+                app:layout_constraintStart_toEndOf="@+id/lineStart"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.camera.view.PreviewView
+                    android:id="@+id/previewView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </FrameLayout>
+
+            <View
+                android:background="@color/colorScanBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/focusView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:background="@color/colorScanBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/focusView"
+                app:layout_constraintEnd_toStartOf="@+id/focusView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/focusView" />
+
+            <View
+                android:background="@color/colorScanBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/focusView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/focusView"
+                app:layout_constraintTop_toTopOf="@+id/focusView" />
+
+            <View
+                android:background="@color/colorScanBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/focusView" />
+
+
+            <ImageView
+                android:id="@+id/flash_light_button"
+                android:padding="4dp"
+                android:layout_width="@dimen/scan_icon_size"
+                android:layout_height="@dimen/scan_icon_size"
+                android:layout_marginTop="36dp"
+                app:layout_constraintStart_toStartOf="@id/focusView"
+                app:layout_constraintEnd_toEndOf="@+id/focusView"
+                app:layout_constraintTop_toBottomOf="@+id/focusView"
+                android:src="@drawable/icon_flash_off" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/flFrameReveal"
+            android:background="@color/colorPrimaryDark"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:layout_gravity="bottom|center_vertical|center_horizontal|center"
+            android:id="@+id/flFabFrame"
+            android:layout_width="@dimen/fab_pay_frame_size"
+            android:layout_height="@dimen/fab_pay_frame_size"
+            android:layout_marginBottom="18dp">
+
+            <FrameLayout
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/ivFabBackground"
+                    android:visibility="gone"
+                    android:layout_width="@dimen/fab_pay_size"
+                    android:layout_height="@dimen/fab_pay_size"
+                    app:srcCompat="@drawable/shape_background_circle_black" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/close_button"
+                    android:layout_width="@dimen/fab_pay_icon_size"
+                    android:layout_height="@dimen/fab_pay_icon_size"
+                    app:srcCompat="@drawable/icon_close" />
+            </FrameLayout>
+        </FrameLayout>
+    </FrameLayout>
+</layout>

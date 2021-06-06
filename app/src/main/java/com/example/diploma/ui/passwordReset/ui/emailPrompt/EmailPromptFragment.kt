@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.diploma.R
 import com.example.diploma.data.model.Result
-import com.example.diploma.databinding.EmailPromptFragmentBinding
+import com.example.diploma.databinding.FragmentEmailPromptBinding
 import com.example.diploma.ui.login.ui.login.afterTextChanged
 import com.example.diploma.ui.passwordReset.ui.PasswordResetViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,8 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class EmailPromptFragment : Fragment() {
 
-    private val passwordResetViewModel: PasswordResetViewModel by activityViewModels()
-    private lateinit var binding: EmailPromptFragmentBinding
+    private val viewModel: PasswordResetViewModel by viewModels()
+    private lateinit var binding: FragmentEmailPromptBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +30,7 @@ class EmailPromptFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(
             layoutInflater,
-            R.layout.email_prompt_fragment,
+            R.layout.fragment_email_prompt,
             container,
             false
         )
@@ -45,14 +44,14 @@ class EmailPromptFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.emailEditText.afterTextChanged {
-            passwordResetViewModel.forgotPasswordDataChanged(it)
+            viewModel.forgotPasswordDataChanged(it)
         }
 
         binding.forgotPasswordButton.setOnClickListener {
-            passwordResetViewModel.forgotPassword(binding.emailEditText.text.toString())
+            viewModel.forgotPassword(binding.emailEditText.text.toString())
         }
 
-        passwordResetViewModel.forgotPasswordForm.observe(viewLifecycleOwner, Observer {
+        viewModel.forgotPasswordForm.observe(viewLifecycleOwner, Observer {
             val forgotPasswordFormState = it ?: return@Observer
 
             binding.forgotPasswordButton.isEnabled = forgotPasswordFormState.isDataValid
@@ -63,9 +62,8 @@ class EmailPromptFragment : Fragment() {
 
         })
 
-        passwordResetViewModel.forgotPasswordResult.observe(viewLifecycleOwner, Observer {
+        viewModel.forgotPasswordResult.observe(viewLifecycleOwner, Observer {
             val forgotPasswordResult = it ?: return@Observer
-
             when (forgotPasswordResult.status) {
                 Result.Status.LOADING -> {
                     binding.emailPromptProgressbar.visibility = View.VISIBLE

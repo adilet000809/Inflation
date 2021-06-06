@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="70dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose supermarket" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/supermarket_load_progressbar"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_margin="16dp" />
+
+        <TextView
+            android:id="@+id/supermarket_not_found_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City not found"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/supermarket_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_margin="16dp" />
+
+    </LinearLayout>
+</layout>

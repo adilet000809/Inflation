@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".App"
@@ -15,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Diploma"
         android:usesCleartextTraffic="true">
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="barcode" />
         <activity
             android:name="com.example.diploma.ui.passwordReset.PasswordResetActivity"
             android:windowSoftInputMode="stateVisible|adjustResize"/>

@@ -23,7 +23,7 @@ interface AuthDataSource {
 
 class AuthDataSourceImpl @Inject constructor(
         private val authApiHelper: AuthApiHelper,
-        private val retrofit: Retrofit
+        retrofit: Retrofit
 ): AuthDataSource, BaseDataSource(retrofit) {
 
     override suspend fun login(loginRequest: LoginRequest): Result<LoginResult> {

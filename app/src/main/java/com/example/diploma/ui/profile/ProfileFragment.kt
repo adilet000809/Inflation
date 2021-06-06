@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.diploma.R
 import com.example.diploma.data.manager.SessionManager
 import com.example.diploma.data.model.Result
-import com.example.diploma.databinding.ProfileFragmentBinding
+import com.example.diploma.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,13 +22,13 @@ class ProfileFragment : Fragment() {
 
     @Inject lateinit var sessionManager: SessionManager
     private val profileViewModel: ProfileViewModel by activityViewModels()
-    private lateinit var binding: ProfileFragmentBinding
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(
                 layoutInflater,
-                R.layout.profile_fragment,
+                R.layout.fragment_profile,
                 container,
                 false
         )
@@ -46,24 +46,32 @@ class ProfileFragment : Fragment() {
 
             when (userProfileResult.status) {
                 Result.Status.LOADING -> {
-                    binding.userProfileProgressBar.visibility = View.VISIBLE
+                    binding.profileFragmentUserProfileProgressBar.visibility = View.VISIBLE
                 }
                 Result.Status.SUCCESS -> {
-                    binding.userProfileProgressBar.visibility = View.GONE
-                    binding.userNameTextView.text = getString(R.string.user_profile_name,
+                    binding.profileFragmentUserProfileProgressBar.visibility = View.GONE
+                    binding.profileFragmentUserNameTextView.text = getString(R.string.user_profile_name,
                         userProfileResult.data?.firstName, userProfileResult.data?.lastName)
-                    binding.userTotalExpenditureTextView.text = userProfileResult.data?.total.toString()
+                    binding.profileFragmentUserTotalExpenditureTextView.text = userProfileResult.data?.total.toString()
                 }
                 Result.Status.ERROR -> {
-                    binding.userProfileProgressBar.visibility = View.GONE
+                    binding.profileFragmentUserProfileProgressBar.visibility = View.GONE
                     Toast.makeText(requireActivity(), userProfileResult.message, Toast.LENGTH_SHORT).show()
                 }
             }
-
         })
 
-        binding.userProfileEditTextView.setOnClickListener {
+        binding.profileFragmentUserProfileEditTextView.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToProfileChangeFragment())
+        }
+        binding.profileFragmentUserPasswordChangeTextView.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToPasswordEditFragment())
+        }
+        binding.profileFragmentUserPurchaseListTextView.setOnClickListener {
+            findNavController().navigate(R.id.purchaseListFragment)
+        }
+        binding.profileFragmentUserPurchasesTextView.setOnClickListener {
+            findNavController().navigate(R.id.purchaseFragment)
         }
     }
 

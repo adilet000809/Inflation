@@ -15,12 +15,8 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(
-    private val authDataSource: AuthDataSource
+    private val authDataSource: AuthDataSource,
 ) {
-
-    suspend fun logout() {
-        authDataSource.logout()
-    }
 
     suspend fun login(username: String, password: String): Flow<Result<LoginResult>> {
         return flow {
@@ -55,4 +51,9 @@ class AuthRepository @Inject constructor(
             emit(resetPasswordResult)
         }.flowOn(Dispatchers.IO)
     }
+
+    suspend fun logout() {
+        authDataSource.logout()
+    }
+
 }

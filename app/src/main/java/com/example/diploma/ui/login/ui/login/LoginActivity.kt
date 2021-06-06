@@ -27,9 +27,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_login)
-
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
@@ -39,9 +37,7 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
-
             login.isEnabled = loginState.isDataValid
-
             if (loginState.usernameError != null) {
                 username.error = getString(loginState.usernameError)
             }
@@ -83,7 +79,6 @@ class LoginActivity : AppCompatActivity() {
                     password.text.toString()
                 )
             }
-
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
@@ -94,7 +89,6 @@ class LoginActivity : AppCompatActivity() {
                 }
                 false
             }
-
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())

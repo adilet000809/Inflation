@@ -1,9 +1,16 @@
 package com.example.diploma.ui.login.ui.login
 
-/**
- * Authentication result : success (user details) or error message.
- */
 data class LoginResult(
-    val userName: String?,
+    val user: User?,
     val token: String?,
+)
+
+data class User(
+    val id: Int?,
+    val firstName: String?,
+    val lastName: String?,
+    val username: String?,
+    val email: String?,
+    val total: Double?,
+    val lastUpdate: Long = System.currentTimeMillis()
 )

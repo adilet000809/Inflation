@@ -12,6 +12,11 @@
         android:title="" />
 
     <item
+        android:id="@+id/barcodeScanFragment"
+        android:icon="@drawable/ic_barcode_scan"
+        android:title="" />
+
+    <item
         android:id="@+id/purchaseListFragment"
         android:icon="@drawable/ic_purchase_list"
         android:title="" />

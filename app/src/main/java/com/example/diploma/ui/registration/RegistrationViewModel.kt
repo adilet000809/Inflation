@@ -57,20 +57,12 @@ class RegistrationViewModel @Inject constructor(
         }
     }
 
-    private fun isNameValid(name: String): Boolean {
-        return name.isEmpty()
-    }
-
     private fun isEmailValid(email: String): Boolean {
         return email.trim().matches(emailPattern.toRegex())
     }
 
-    private fun isUserNameValid(username: String): Boolean {
-        return username.isNotEmpty()
-    }
-
     private fun isPasswordValid(password: String): Boolean {
-        return password.length >= 8
+        return password.matches(passwordValidationPattern)
     }
 
     private fun isPasswordMatch(password1: String, password2: String): Boolean {
@@ -79,5 +71,6 @@ class RegistrationViewModel @Inject constructor(
 
     companion object {
         private const val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        private val passwordValidationPattern = Regex("^(?=.*[0-9]).{8,15}$")
     }
 }

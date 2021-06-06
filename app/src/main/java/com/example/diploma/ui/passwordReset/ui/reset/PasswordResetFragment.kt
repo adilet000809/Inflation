@@ -7,15 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.example.diploma.R
 import com.example.diploma.data.model.Result
-import com.example.diploma.databinding.PasswordResetFragmentBinding
+import com.example.diploma.databinding.FragmentPasswordResetBinding
 import com.example.diploma.ui.login.ui.login.LoginActivity
 import com.example.diploma.ui.login.ui.login.afterTextChanged
 import com.example.diploma.ui.passwordReset.ui.PasswordResetViewModel
@@ -26,27 +24,24 @@ class PasswordResetFragment : Fragment() {
 
     private val passwordResetViewModel: PasswordResetViewModel by activityViewModels()
     private val args: PasswordResetFragmentArgs by navArgs()
-    private lateinit var binding: PasswordResetFragmentBinding
+    private lateinit var binding: FragmentPasswordResetBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = DataBindingUtil.inflate(
             layoutInflater,
-            R.layout.password_reset_fragment,
+            R.layout.fragment_password_reset,
             container,
             false
         )
         binding.lifecycleOwner = this
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.passwordResetCodeEditText.afterTextChanged {
             passwordResetViewModel.resetPasswordDataChanged(
                     it,
@@ -135,7 +130,5 @@ class PasswordResetFragment : Fragment() {
                 }
             }
         })
-
     }
-
 }

@@ -6,6 +6,7 @@ data class FormState(
     val usernameError: Int? = null,
     val passwordMatchError: Int? = null,
     val passwordError: Int? = null,
+    val currentPasswordError: Int? = null,
     val codeError: Int? = null,
     val isDataValid: Boolean = false
 )
