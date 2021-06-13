@@ -56,13 +56,10 @@ class SupermarketListAdapter(
             override fun areItemsTheSame(oldItem: Supermarket, newItem: Supermarket): Boolean {
                 return oldItem === newItem
             }
-
             override fun areContentsTheSame(oldItem: Supermarket, newItem: Supermarket): Boolean {
                 return oldItem.id == newItem.id
             }
         }
-
         private var LAST_SELECTED_POSITION = -1
     }
-
 }

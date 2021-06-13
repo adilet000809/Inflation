@@ -1,16 +1,14 @@
 package com.example.diploma.ui.home
 
+import android.database.DatabaseUtils
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.diploma.R
@@ -21,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CityListDialogFragment : BottomSheetDialogFragment() {
+class CityBottomSheetFragment : BottomSheetDialogFragment() {
 
     @Inject lateinit var sessionManager: SessionManager
     private val viewModel: HomeViewModel by activityViewModels()
@@ -29,7 +27,14 @@ class CityListDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_bottomsheet_city, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_bottomsheet_city,
+            container,
+            false
+        )
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

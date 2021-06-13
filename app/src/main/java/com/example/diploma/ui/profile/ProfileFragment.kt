@@ -1,5 +1,6 @@
 package com.example.diploma.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.example.diploma.R
 import com.example.diploma.data.manager.SessionManager
 import com.example.diploma.data.model.Result
 import com.example.diploma.databinding.FragmentProfileBinding
+import com.example.diploma.ui.splash.SplashScreenActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -73,6 +75,9 @@ class ProfileFragment : Fragment() {
         binding.profileFragmentUserPurchasesTextView.setOnClickListener {
             findNavController().navigate(R.id.purchaseFragment)
         }
+        binding.profileFragmentLogoutImageView.setOnClickListener {
+            sessionManager.deleteAuthToken()
+            startActivity(Intent(requireContext(), SplashScreenActivity::class.java))
+        }
     }
-
 }

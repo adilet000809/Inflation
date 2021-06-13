@@ -56,13 +56,10 @@ class CityListAdapter(
             override fun areItemsTheSame(oldItem: City, newItem: City): Boolean {
                 return oldItem === newItem
             }
-
             override fun areContentsTheSame(oldItem: City, newItem: City): Boolean {
                 return oldItem.id == newItem.id
             }
         }
-
         private var LAST_SELECTED_POSITION = -1
     }
-
 }

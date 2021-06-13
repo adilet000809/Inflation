@@ -29,7 +29,6 @@ class ProfileEditFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-
         binding = DataBindingUtil.inflate(
                 layoutInflater,
                 R.layout.profile_edit_fragment,
@@ -37,16 +36,11 @@ class ProfileEditFragment : Fragment() {
                 false
         )
         binding.lifecycleOwner = this
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.topAppBar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
 
         binding.profileEditFirstName.setText(profileViewModel.userProfileResult.value?.data?.firstName)
         binding.profileEditLastName.setText(profileViewModel.userProfileResult.value?.data?.lastName)
@@ -64,7 +58,6 @@ class ProfileEditFragment : Fragment() {
                 binding.profileEditFirstName.error = getString(profileEditState.nameError)
                 binding.profileEditLastName.error = getString(profileEditState.nameError)
             }
-
         })
 
         profileViewModel.userProfileEditResult.observe(requireActivity(), Observer {
@@ -86,15 +79,17 @@ class ProfileEditFragment : Fragment() {
                     }
                 }
             }
-
         })
+
+        binding.topAppBar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
 
         binding.profileEditFirstName.afterTextChanged {
             profileViewModel.profileEditDataChanged(
                     binding.profileEditEmail.text.toString(),
                     it,
                     binding.profileEditLastName.text.toString()
-
             )
         }
 
@@ -103,7 +98,6 @@ class ProfileEditFragment : Fragment() {
                     binding.profileEditEmail.text.toString(),
                     binding.profileEditFirstName.text.toString(),
                     it
-
             )
         }
 
@@ -112,7 +106,6 @@ class ProfileEditFragment : Fragment() {
                     it,
                     binding.profileEditFirstName.text.toString(),
                     binding.profileEditLastName.text.toString()
-
             )
         }
 
@@ -123,6 +116,5 @@ class ProfileEditFragment : Fragment() {
                     email = binding.profileEditEmail.text.toString()
             ))
         }
-
     }
 }

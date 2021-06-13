@@ -23,7 +23,7 @@
         android:id="@+id/purchaseListFragment"
         android:name="com.example.diploma.ui.purchaseList.PurchaseListFragment"
         android:label="purchase_list_fragment"
-        tools:layout="@layout/purchase_list_fragment" />
+        tools:layout="@layout/fragment_purchase_list" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.diploma.ui.profile.ProfileFragment"
@@ -43,7 +43,7 @@
         tools:layout="@layout/profile_edit_fragment" />
     <fragment
         android:id="@+id/passwordEditFragment"
-        android:name="com.example.diploma.ui.PasswordEditFragment"
+        android:name="com.example.diploma.ui.passwordEdit.PasswordEditFragment"
         android:label="PasswordEditFragment"
         tools:layout="@layout/fragment_password_edit"/>
     <fragment

@@ -11,6 +11,7 @@ import com.makeramen.roundedimageview.RoundedImageView
 class SliderAdapter internal constructor(
     private val sliderItems: MutableList<ImageSlide>,
     private val viewPager2: ViewPager2): RecyclerView.Adapter<SliderAdapter.SliderViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SliderViewHolder {
         return SliderViewHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -37,12 +38,10 @@ class SliderAdapter internal constructor(
         fun setImage(sliderItems: ImageSlide) {
             imageView.setImageResource(sliderItems.image)
         }
-
     }
 
     private val runnable = Runnable {
         sliderItems.addAll(sliderItems)
         notifyDataSetChanged()
     }
-
 }

@@ -43,6 +43,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Adilet Bolatbek"/>
 
+        <ImageView
+            android:id="@+id/profile_fragment_logout_image_view"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/icon_log_out"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/profile_fragment_user_name_text_view"
+            app:layout_constraintBottom_toBottomOf="@id/profile_fragment_user_name_text_view"
+            android:clickable="true"/>
+
         <TextView
             android:id="@+id/profile_fragment_user_profile_edit_text_view"
             android:layout_width="wrap_content"

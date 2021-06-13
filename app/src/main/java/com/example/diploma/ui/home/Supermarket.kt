@@ -1,6 +1,9 @@
 package com.example.diploma.ui.home
 
+import androidx.room.ColumnInfo
+
+
 data class Supermarket(
-    val id: Int?,
-    val name: String?
+    @ColumnInfo(name = "supermarket_id") val id: Int?,
+    @ColumnInfo(name = "supermarket_name") val name: String?
 )

@@ -3,7 +3,6 @@ package com.example.diploma.data.manager
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.diploma.R
-import com.example.diploma.ui.home.City
 
 class SessionManager(context: Context) {
 
@@ -19,6 +18,7 @@ class SessionManager(context: Context) {
 
     fun saveAuthToken(token: String) {
         val editor = prefs.edit()
+        editor.clear()
         editor.putString(USER_TOKEN, "Bearer $token")
         editor.apply()
     }
@@ -30,6 +30,7 @@ class SessionManager(context: Context) {
     fun deleteAuthToken() {
         val editor = prefs.edit()
         editor.clear()
+        editor.apply()
     }
 
     fun saveCurrentCityId(cityId: Int) {

@@ -5,5 +5,4 @@ data class Product(
     val name: String?,
     val barcode: String?,
     val category: Category?,
-
 )

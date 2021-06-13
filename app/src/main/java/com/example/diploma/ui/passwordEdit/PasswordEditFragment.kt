@@ -1,4 +1,4 @@
-package com.example.diploma.ui
+package com.example.diploma.ui.passwordEdit
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -29,7 +29,6 @@ class PasswordEditFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-
         binding = DataBindingUtil.inflate(
                 layoutInflater,
                 R.layout.fragment_password_edit,
@@ -42,10 +41,6 @@ class PasswordEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.topAppBar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
 
         profileViewModel.passwordEditForm.observe(requireActivity(), Observer {
             val passwordEditState = it ?: return@Observer
@@ -61,7 +56,6 @@ class PasswordEditFragment : Fragment() {
             if (passwordEditState.passwordMatchError != null) {
                 binding.editPassword2.error = getString(passwordEditState.passwordMatchError)
             }
-
         })
 
         binding.currentPassword.afterTextChanged {
@@ -69,7 +63,6 @@ class PasswordEditFragment : Fragment() {
                 it,
                 binding.editPassword1.text.toString(),
                 binding.editPassword2.text.toString()
-
             )
         }
 
@@ -78,7 +71,6 @@ class PasswordEditFragment : Fragment() {
                 binding.currentPassword.text.toString(),
                 it,
                 binding.editPassword2.text.toString()
-
             )
         }
 
@@ -87,13 +79,15 @@ class PasswordEditFragment : Fragment() {
                 binding.currentPassword.text.toString(),
                 binding.editPassword1.text.toString(),
                 it
-
             )
+        }
+
+        binding.topAppBar.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
 
         profileViewModel.passwordEditResult.observe(requireActivity(), Observer {
             val passwordEditResult = it ?: return@Observer
-
             when (passwordEditResult.status) {
                 Result.Status.LOADING -> {
                     binding.editPasswordProgressbar.visibility = View.VISIBLE
@@ -119,7 +113,6 @@ class PasswordEditFragment : Fragment() {
                 )
             )
         }
-
     }
 
 }

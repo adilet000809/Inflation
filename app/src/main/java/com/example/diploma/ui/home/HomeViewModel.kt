@@ -1,9 +1,6 @@
 package com.example.diploma.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.diploma.data.model.BaseResponse
 import com.example.diploma.data.model.Result
 import com.example.diploma.data.repository.LocationRepository
@@ -40,11 +37,7 @@ class HomeViewModel @Inject constructor(
     private val _product = MutableLiveData<Result<SupermarketProduct>>()
     val product: LiveData<Result<SupermarketProduct>> = _product
 
-    private val _purchaseList = MutableLiveData<MutableList<PurchaseListProduct>>()
-    val purchaseList: LiveData<MutableList<PurchaseListProduct>> = _purchaseList
-
-    private val _barcodeProcessing = MutableLiveData<Boolean>()
-    val barcodeProcessing: LiveData<Boolean> = _barcodeProcessing
+    val purchaseList: LiveData<List<PurchaseListProduct>> = productRepository.loadSupermarketProducts().asLiveData()
 
     private val _purchaseResult = MutableLiveData<Result<BaseResponse>>()
     val purchaseResult: LiveData<Result<BaseResponse>> = _purchaseResult
@@ -123,8 +116,8 @@ class HomeViewModel @Inject constructor(
 
     fun confirmPurchase(token: String) {
         val listProduct = mutableListOf<ProductList>()
-        _purchaseList.value?.forEach {
-            listProduct.add((ProductList(it.supermarketProduct.id!!, it.quantity)))
+        purchaseList.value?.forEach {
+            listProduct.add((ProductList(it.id, it.quantity)))
         }
         viewModelScope.launch {
             productRepository.confirmPurchase(token, listProduct).collect {
@@ -141,52 +134,46 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun addProductToPurchaseList(supermarketProduct: SupermarketProduct) {
-        if (_purchaseList.value == null) _purchaseList.value = mutableListOf()
-
-        val product: PurchaseListProduct? = _purchaseList.value?.firstOrNull {
-            it.supermarketProduct.id == supermarketProduct.id
-        }
-        if (product != null) {
-            product.quantity += 1
-            _purchaseList.value?.remove(product)
-            _purchaseList.value?.add(product)
-        } else {
-            _purchaseList.value?.add(PurchaseListProduct(supermarketProduct, 1))
-            _purchaseList.value = _purchaseList.value
+    fun addProductToPurchaseList() {
+        viewModelScope.launch {
+            val purchaseListProduct = _product.value?.data!!
+            productRepository.saveProductToPurchaseList(
+                PurchaseListProduct(
+                    purchaseListProduct.id!!, purchaseListProduct.price!!, purchaseListProduct.product.name!!, 1)
+            )
         }
     }
 
     fun clearPurchaseList() {
-        _purchaseList.value?.clear()
-        _purchaseList.value = mutableListOf()
+        viewModelScope.launch {
+            productRepository.clearPurchaseList()
+        }
+    }
+
+    fun deletePurchaseListItem(position: Int) {
+        viewModelScope.launch {
+            productRepository.deleteProductFromPurchaseList(purchaseList.value?.get(position)!!)
+        }
+    }
+
+    fun decreaseQuantityPurchaseList(position: Int) {
+        val purchaseListProduct: PurchaseListProduct = purchaseList.value?.get(position)!!
+        purchaseListProduct.quantity -= 1
+        viewModelScope.launch {
+            productRepository.adjustPurchaseListProductQuantity(purchaseListProduct)
+        }
+    }
+
+    fun increaseQuantityPurchaseList(position: Int) {
+        val purchaseListProduct: PurchaseListProduct = purchaseList.value?.get(position)!!
+        purchaseListProduct.quantity += 1
+        viewModelScope.launch {
+            productRepository.adjustPurchaseListProductQuantity(purchaseListProduct)
+        }
     }
 
     fun clearCheaperProductList() {
         _cheaperProductResult.value?.data?.clear()
-    }
-
-    fun setBarcodeProcessing(state: Boolean) {
-        _barcodeProcessing.value = state
-    }
-
-    fun deletePurchaseListItem(position: Int) {
-        _purchaseList.value?.removeAt(position)
-        _purchaseList.value = _purchaseList.value
-    }
-
-    fun decreaseQuantityPurchaseList(position: Int) {
-        val purchaseListProduct: PurchaseListProduct = _purchaseList.value?.get(position)!!
-        purchaseListProduct.quantity -= 1
-        _purchaseList.value?.set(position, purchaseListProduct)
-        _purchaseList.value = _purchaseList.value
-    }
-
-    fun increaseQuantityPurchaseList(position: Int) {
-        val purchaseListProduct: PurchaseListProduct = _purchaseList.value?.get(position)!!
-        purchaseListProduct.quantity += 1
-        _purchaseList.value?.set(position, purchaseListProduct)
-        _purchaseList.value = _purchaseList.value
     }
 
 }

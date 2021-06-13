@@ -72,7 +72,8 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             profileRepository.editPassword(token, passwordEditRequest).collect {
                 if (it.status == Result.Status.SUCCESS) {
-                    _passwordEditResult.value = Result.success(it.data)
+                    val a = it.data
+                    _passwordEditResult.value = Result.success(a)
                 }
                 if (it.status == Result.Status.LOADING) {
                     _passwordEditResult.value = Result.loading()

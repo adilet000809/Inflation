@@ -5,17 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.diploma.R
 import com.example.diploma.data.manager.SessionManager
 import com.example.diploma.data.model.Result
+import com.example.diploma.databinding.FragmentPurchaseListBinding
 import com.example.diploma.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -25,40 +24,43 @@ class PurchaseListFragment : Fragment(), PurchaseProductItemClickListener {
 
     @Inject lateinit var sessionManager: SessionManager
     private val viewModel: HomeViewModel by activityViewModels()
+    private lateinit var binding: FragmentPurchaseListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.purchase_list_fragment, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_purchase_list,
+            container,
+            false
+        )
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val purchaseTotalTextView: TextView = view.findViewById(R.id.purchase_total_text_view)
-        val purchaseConfirmButton: Button = view.findViewById(R.id.purchase_confirm_button)
-        val purchaseListProgressBar: ProgressBar = view.findViewById(R.id.purchase_list_progressbar)
-        val purchaseListRecyclerView: RecyclerView = view.findViewById(R.id.purchase_list_recycler_view)
 
         val adapter = PurchaseListAdapter(this)
 
-        purchaseListRecyclerView.adapter = adapter
-        purchaseListRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.purchaseListRecyclerView.adapter = adapter
+        binding.purchaseListRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        val a = viewModel.purchaseList.value
-
-        adapter.submitList(a)
+        adapter.submitList(viewModel.purchaseList.value)
 
         viewModel.purchaseList.observe(viewLifecycleOwner, {
-            purchaseConfirmButton.isEnabled = it.size > 0
+            adapter.submitList(it)
+            binding.purchaseConfirmButton.isEnabled = it.isNotEmpty()
             var total = 0.0
             it.forEach { product ->
                 total += product.getTotal()
             }
-            purchaseTotalTextView.text = resources.getString(R.string.purchase_list_total, total.toString())
+            binding.purchaseTotalTextView.text = resources.getString(R.string.purchase_list_total, total.toString())
         })
 
-        purchaseConfirmButton.setOnClickListener {
+        binding.purchaseConfirmButton.setOnClickListener {
             if (sessionManager.fetchAuthToken() != null) {
                 viewModel.confirmPurchase(sessionManager.fetchAuthToken()!!)
             }
@@ -68,14 +70,14 @@ class PurchaseListFragment : Fragment(), PurchaseProductItemClickListener {
             val purchaseResult = it ?: return@Observer
             when (purchaseResult.status) {
                 Result.Status.LOADING -> {
-                    purchaseListProgressBar.visibility = View.VISIBLE
+                    binding.purchaseListProgressbar.visibility = View.VISIBLE
                 }
                 Result.Status.SUCCESS -> {
-                    purchaseListProgressBar.visibility = View.GONE
+                    binding.purchaseListProgressbar.visibility = View.GONE
                     viewModel.clearPurchaseList()
                 }
                 Result.Status.ERROR -> {
-                    purchaseListProgressBar.visibility = View.GONE
+                    binding.purchaseListProgressbar.visibility = View.GONE
                     Toast.makeText(requireContext(), purchaseResult.message, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -96,4 +98,10 @@ class PurchaseListFragment : Fragment(), PurchaseProductItemClickListener {
         viewModel.increaseQuantityPurchaseList(position)
     }
 
+}
+
+interface PurchaseProductItemClickListener {
+    fun onDeleteItem(position: Int)
+    fun onDecreaseQuantity(position: Int)
+    fun onIncreaseQuantity(position: Int)
 }

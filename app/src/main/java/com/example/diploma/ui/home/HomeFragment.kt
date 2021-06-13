@@ -5,13 +5,9 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -61,12 +57,12 @@ class HomeFragment : Fragment() {
         })
 
         binding.homeFragmentCityLocationImageView.setOnClickListener {
-            val cityBottomSheetDialogFragment = CityListDialogFragment()
+            val cityBottomSheetDialogFragment = CityBottomSheetFragment()
             cityBottomSheetDialogFragment.show(requireActivity().supportFragmentManager, "")
         }
 
         binding.homeFragmentSupermarketImageView.setOnClickListener {
-            val supermarketBottomSheetDialogFragment = SupermarketListDialogFragment()
+            val supermarketBottomSheetDialogFragment = SupermarketBottomSheetFragment()
             supermarketBottomSheetDialogFragment.show(requireActivity().supportFragmentManager, "")
         }
 

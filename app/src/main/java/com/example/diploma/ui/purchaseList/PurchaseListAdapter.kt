@@ -23,7 +23,7 @@ class PurchaseListAdapter(
 
     override fun onBindViewHolder(holder: PurchaseListViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.supermarketProduct.product.name ?: "", current.quantity, position)
+        holder.bind(current.name ?: "", current.quantity, position)
     }
 
     inner class PurchaseListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -53,7 +53,6 @@ class PurchaseListAdapter(
                 notifyItemChanged(position)
             }
         }
-
     }
 
     companion object {
@@ -62,15 +61,8 @@ class PurchaseListAdapter(
                 return oldItem === newItem
             }
             override fun areContentsTheSame(oldItem: PurchaseListProduct, newItem: PurchaseListProduct): Boolean {
-                return oldItem.supermarketProduct.id == newItem.supermarketProduct.id
+                return oldItem.id == newItem.id
             }
         }
     }
-
-}
-
-interface PurchaseProductItemClickListener {
-    fun onDeleteItem(position: Int)
-    fun onDecreaseQuantity(position: Int)
-    fun onIncreaseQuantity(position: Int)
 }

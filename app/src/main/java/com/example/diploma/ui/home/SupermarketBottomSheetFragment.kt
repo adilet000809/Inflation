@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SupermarketListDialogFragment : BottomSheetDialogFragment() {
+class SupermarketBottomSheetFragment : BottomSheetDialogFragment() {
 
     @Inject lateinit var sessionManager: SessionManager
     private val viewModel: HomeViewModel by activityViewModels()
