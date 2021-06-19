@@ -31,8 +31,8 @@ class HomeViewModel @Inject constructor(
     private val _cheaperProductResult = MutableLiveData<Result<MutableList<SupermarketProduct>>>()
     val cheaperProductResult: LiveData<Result<MutableList<SupermarketProduct>>> = _cheaperProductResult
 
-    private val _currentSupermarket = MutableLiveData<Supermarket>()
-    val currentSupermarket: LiveData<Supermarket> = _currentSupermarket
+    private val _currentSupermarket = MutableLiveData<Supermarket?>()
+    val currentSupermarket: LiveData<Supermarket?> = _currentSupermarket
 
     private val _product = MutableLiveData<Result<SupermarketProduct>>()
     val product: LiveData<Result<SupermarketProduct>> = _product
@@ -80,6 +80,10 @@ class HomeViewModel @Inject constructor(
 
     fun saveCurrentSupermarket(supermarket: Supermarket) {
         _currentSupermarket.value = supermarket
+    }
+
+    fun clearSupermarket() {
+        _currentSupermarket.value = null
     }
 
     fun fetchProduct(barcode: String, supermarketId: Int) {

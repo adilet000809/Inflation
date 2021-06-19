@@ -11,14 +11,13 @@ class SessionManager(context: Context) {
     companion object {
         const val USER_TOKEN = "user_token"
         const val CURRENT_CITY_ID = "current_city_id"
-        const val CURRENT_CITY_NAME = "current_city_NAME"
+        const val CURRENT_CITY_NAME = "current_city_name"
         const val CURRENT_SUPERMARKET_ID = "current_supermarket_id"
-        const val CURRENT_SUPERMARKET_NAME = "current_supermarket_NAME"
+        const val CURRENT_SUPERMARKET_NAME = "current_supermarket_name"
     }
 
     fun saveAuthToken(token: String) {
         val editor = prefs.edit()
-        editor.clear()
         editor.putString(USER_TOKEN, "Bearer $token")
         editor.apply()
     }
@@ -41,6 +40,13 @@ class SessionManager(context: Context) {
 
     fun fetchCurrentCityId(): Int {
         return prefs.getInt(CURRENT_CITY_ID, -1)
+    }
+
+    fun clearSupermarket() {
+        val editor = prefs.edit()
+        editor.putString(CURRENT_SUPERMARKET_NAME, null)
+        editor.putInt(CURRENT_SUPERMARKET_ID, -1)
+        editor.apply()
     }
 
     fun saveCurrentCityName(cityName: String) {

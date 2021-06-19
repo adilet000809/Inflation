@@ -1,6 +1,4 @@
 package com.example.diploma.ui.home
-
-import android.database.DatabaseUtils
 import android.os.Bundle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -71,8 +69,10 @@ class CityBottomSheetFragment : BottomSheetDialogFragment() {
     private fun selectCity(position: Int) {
         val currentCity: City = viewModel.cityResult.value?.data!![position]
         viewModel.saveCurrentCity(currentCity)
+        viewModel.clearSupermarket()
         sessionManager.saveCurrentCityId(currentCity.id!!)
         sessionManager.saveCurrentCityName(currentCity.name!!)
+        sessionManager.clearSupermarket()
     }
 
 }

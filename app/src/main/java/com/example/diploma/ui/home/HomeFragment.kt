@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
         })
 
         viewModel.currentSupermarket.observe(viewLifecycleOwner, {
-            binding.homeFragmentSupermarketTextView.text = it.name ?: ""
+            binding.homeFragmentSupermarketTextView.text = it?.name ?: ""
         })
 
         binding.homeFragmentCityLocationImageView.setOnClickListener {
